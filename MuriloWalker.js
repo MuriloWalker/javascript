@@ -28,3 +28,101 @@ var adsCookieEx = 1; // cookies expirados 1 hora podem ser alterados 1 - 24
 
 function ASSetCookie(a,b,c){if (c){var d = new Date();d.setTime(d.getTime() + adsCookieEx * 3600 * 1000);var e = ";expires=" + d.toGMTString()}else{var e = ""}document.cookie = a + "=" + b + e + ";path=/"}function ASGetCookie(a){var b,c,d,e = document.cookie.split(";");for (b = 0;b < e.length;b++) if (c = e[b].substr(0,e[b].indexOf("=")),d = e[b].substr(e[b].indexOf("=") + 1),c = c.replace(/^\s+|\s+$/g,""),c == a) return unescape(d)}function ASSetCookieAds(a,b){var c = ASGetCookie(a);void 0 != c && "" != c ? (ASTheCookieInt = parseInt(c) + 1,ASSetCookie(a,ASTheCookieInt.toString(),0)):ASSetCookie(a,"1",b)}function ASMaxClick(a,b){var c = ASGetCookie(a);return void 0 != c && parseInt(c) >= b ? !0:!1}jQuery(document).ready(function(a){var b = "adsbygoogle",c = 7,d = maxClick,e = ".adsbygoogle",f = !1;ASMaxClick(b,d) && a(e).addClass(aksiAds).click(false),a(e).bind("mouseover",function(){f = !0}).bind("mouseout",function(){f = !1}),a(window).on("beforeunload",function(){f && (ASMaxClick(b,d) ? a(e).addClass(aksiAds).click(false):ASSetCookieAds(b,c))})});
 <!-- Script anti-bomba adsense -->
+
+<!--[ lazyload youtube video ]-->
+<style>
+.youtube-player {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000;
+  margin: 0px;
+}
+.youtube-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: transparent;
+}
+.youtube-player img {
+  object-fit: cover;
+  display: block;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  height: auto;
+  cursor: pointer;
+  -webkit-transition: 0.4s all;
+  -moz-transition: 0.4s all;
+  transition: 0.4s all;
+}
+.youtube-player img:hover {
+  -webkit-filter: brightness(75%);
+  -moz-filter: brightness(75%);
+  filter: brightness(75%);
+}
+.youtube-player .play {
+  height: 72px;
+  width: 72px;
+  left: 50%;
+  top: 50%;
+  margin-left: -36px;
+  margin-top: -36px;
+  position: absolute;
+   background: url(&quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXAFrOl8nJiPj2aluE3pVJoFJ5CPldck-eB7JWdpAh437hxwSnotEsfLJrmIvhTRhXVHTEt4uDwlPDYDl4EKEDc4psdr79Xnbo3-bAbdsYjAl3sabkSRIUB9T-V4c6e1bCe42RTn0uYlWvALjCpMZMaNoZhwlsIr65w2olfaZ2k6qTm4Inyuh1iAl5/s1600/youtube-play-branco.png&quot;) no-repeat;
+  cursor: pointer;
+}.youtube-player .play:hover {background: url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfTwdNhIsINJOnefphpqEJ-W_J-TvrPvD6O13GAmqSQ2e5pWCt-nXbBFKDCxi9-gEfxucTRoKDID5H9MMUwMd2WVor_6u-jekx60ziiUmjVsxJT9E9fNdEwQsxNu9zubUu1p0enAI9ETqQudOqQCk--WeGOOS9GC9iwmHY85N3TKguw-X0ARR82pjH/s1600/youtube-play-vermelho.png) no-repeat;}
+</style>
+
+<script>
+//&lt;![CDATA[
+function labnolIframe(div) {
+  var iframe = document.createElement(&quot;iframe&quot;);
+  iframe.setAttribute(
+    &quot;src&quot;,
+    &quot;https://www.youtube.com/embed/&quot; + div.dataset.id + &quot;?autoplay=1&amp;rel=0&quot;
+  );
+  iframe.setAttribute(&quot;frameborder&quot;, &quot;0&quot;);
+  iframe.setAttribute(&quot;allowfullscreen&quot;, &quot;1&quot;);
+  iframe.setAttribute(
+    &quot;allow&quot;,
+    &quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot;
+  );
+  div.parentNode.replaceChild(iframe, div);
+}
+function initYouTubeVideos() {
+  var playerElements = document.getElementsByClassName(&quot;youtube-player&quot;);
+  for (var n = 0; n &lt; playerElements.length; n++) {
+    var videoId = playerElements[n].dataset.id;
+    var div = document.createElement(&quot;div&quot;);
+    div.setAttribute(&quot;data-id&quot;, videoId);
+    var thumbNode = document.createElement(&quot;img&quot;);
+    thumbNode.src = &quot;https://i.ytimg.com/vi_webp/ID/hqdefault.webp&quot;.replace(
+      &quot;ID&quot;,
+      videoId
+    );
+    div.appendChild(thumbNode);
+    var playButton = document.createElement(&quot;div&quot;);
+    playButton.setAttribute(&quot;class&quot;, &quot;play&quot;);
+    div.appendChild(playButton);
+    div.onclick = function () {
+      labnolIframe(this);
+    };
+    playerElements[n].appendChild(div);
+  }
+}
+document.addEventListener(&quot;DOMContentLoaded&quot;, initYouTubeVideos);
+//]]&gt;
+</script>
+<!--[ lazyload youtube video ]-->
